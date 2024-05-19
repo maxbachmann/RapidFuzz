@@ -109,14 +109,15 @@ jobs:
           path: ./wheelhouse/*.whl
 
   build_wheels_macos:
-    name: Build wheel on ${{ matrix.os }}/native/${{matrix.python_tag}}
+    name: Build wheel on ${{ matrix.os }}/native
+    #/${{matrix.python_tag}}
     needs: [build_sdist]
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
         os: [macos-13, macos-14]
-        python_tag: ["cp38-*", "cp39-*", "cp310-*", "cp311-*", "cp312-*", "pp38-*", "pp39-*"]
+        #python_tag: ["cp38-*", "cp39-*", "cp310-*", "cp311-*", "cp312-*", "pp38-*", "pp39-*"]
         exclude:
           # PyPy not supported on MacOS Arm
           - os: macos-14
@@ -124,13 +125,14 @@ jobs:
           - os: macos-14
             python_tag: "pp39-*"
     env:
-      CIBW_BUILD: ${{matrix.python_tag}}
+      #CIBW_BUILD: ${{matrix.python_tag}}
       CIBW_ARCHS: native
       CIBW_TEST_SKIP: "pp*-macosx_*"
       #CIBW_TEST_REQUIRES: pytest hypothesis pandas
       CIBW_TEST_REQUIRES: pytest hypothesis
       CIBW_TEST_COMMAND: pytest {package}/tests
       CIBW_BUILD_VERBOSITY: 3
+      CIBW_PROJECT_REQUIRES_PYTHON: ">=3.8"
 
     steps:
       - uses: actions/download-artifact@v4
