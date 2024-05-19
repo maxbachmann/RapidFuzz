@@ -118,12 +118,12 @@ jobs:
       matrix:
         os: [macos-13, macos-14]
         #python_tag: ["cp38-*", "cp39-*", "cp310-*", "cp311-*", "cp312-*", "pp38-*", "pp39-*"]
-        exclude:
-          # PyPy not supported on MacOS Arm
-          - os: macos-14
-            python_tag: "pp38-*"
-          - os: macos-14
-            python_tag: "pp39-*"
+        #exclude:
+        #  # PyPy not supported on MacOS Arm
+        #  - os: macos-14
+        #    python_tag: "pp38-*"
+        #  - os: macos-14
+        #    python_tag: "pp39-*"
     env:
       #CIBW_BUILD: ${{matrix.python_tag}}
       CIBW_ARCHS: native
