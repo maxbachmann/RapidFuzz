@@ -643,14 +643,17 @@ def cpdist(
     """
     import numpy as np
 
-    if len(queries) != len(choices):
+    len_queries = len(queries)
+    len_choices = len(choices)
+
+    if len_queries != len_choices:
         error_message = "Length of queries and choices must be the same!"
         raise ValueError(error_message)
 
     _ = workers, score_hint
     scorer_kwargs = scorer_kwargs or {}
     dtype = _dtype_to_type_num(dtype, scorer, scorer_kwargs)
-    results = np.zeros((len(queries),), dtype=dtype)
+    results = np.zeros((len_queries,), dtype=dtype)
 
     setupPandas()
 

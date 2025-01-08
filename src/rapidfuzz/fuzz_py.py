@@ -316,9 +316,10 @@ def partial_ratio_alignment(
 
     if not s1 and not s2:
         return ScoreAlignment(100.0, 0, 0, 0, 0)
-
     s1, s2 = conv_sequences(s1, s2)
-    if len(s1) <= len(s2):
+    len1 = len(s1)
+    len2 = len(s2)
+    if len1 <= len2:
         shorter = s1
         longer = s2
     else:
@@ -326,7 +327,7 @@ def partial_ratio_alignment(
         longer = s1
 
     res = _partial_ratio_impl(shorter, longer, score_cutoff / 100)
-    if res.score != 100 and len(s1) == len(s2):
+    if res.score != 100 and len1 == len2:
         score_cutoff = max(score_cutoff, res.score)
         res2 = _partial_ratio_impl(longer, shorter, score_cutoff / 100)
         if res2.score > res.score:
@@ -335,7 +336,7 @@ def partial_ratio_alignment(
     if res.score < score_cutoff:
         return None
 
-    if len(s1) <= len(s2):
+    if len1 <= len2:
         return res
 
     return ScoreAlignment(res.score, res.dest_start, res.dest_end, res.src_start, res.src_end)
