@@ -4,7 +4,9 @@ on:
   release:
     types:
       - published
-
+  pull_request:
+    paths:
+      - .github/workflows/releasebuild.yml
   workflow_dispatch:
 
 jobs:
@@ -100,9 +102,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [macos-13, macos-14]
+        os: [macos-12, macos-14]
     env:
-      CIBW_ARCHS: native
       CIBW_TEST_SKIP: "pp*-macosx_*"
       #CIBW_TEST_REQUIRES: pytest hypothesis pandas
       CIBW_TEST_REQUIRES: pytest hypothesis
